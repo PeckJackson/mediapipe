@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 
 def setup_camera(camera_num=0):
     cam = cv2.VideoCapture(camera_num)

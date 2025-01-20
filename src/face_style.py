@@ -25,16 +25,6 @@ style_path = get_face_model_path(MODEL_STYLE)
 
 #### Open cam and apply style
 
-def process_result(result, output_image, timestamp_ms):
-    print("Callback triggered!")
-    if result and result.stylized_image:
-        print("Result has stylized image!")
-        # Convert back to BGR for display.
-        output_frame = cv2.cvtColor(output_image.numpy_view(), cv2.COLOR_RGB2BGR)
-        cv2.imshow("Stylized Webcam", output_frame)
-    else:
-        print("Result does not have a stylized image.")
-
 
 def setup_styler_options(style_path):
     base_options = python.BaseOptions(model_asset_path=style_path)
@@ -62,7 +52,7 @@ def process_and_display_frame(cam, style_path):
 
             # mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
 
-            stylized_image = stylizer.stylize(mp_image)
+            stylized_image = landmarker.detect_async(mp_image, frame_timestamp_ms)
 
             if stylized_image is not None:
                 # Convert MediaPipe Image to numpy array and then to BGR
